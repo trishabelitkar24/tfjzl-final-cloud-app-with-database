@@ -4,7 +4,6 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>{{ course.name }}</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -27,7 +26,9 @@
                     <a class="btn btn-link" href="#">
                         {{ user.first_name }} ({{ user.username }})
                     </a>
-                    <a class="btn btn-link" href="{% url 'onlinecourse:logout' %}">Logout</a>
+                    <a class="btn btn-link" href="{% url 'onlinecourse:logout' %}">
+                        Logout
+                    </a>
                 </li>
                 {% else %}
                 <li>
@@ -51,7 +52,7 @@
 
         <h2>{{ course.name }}</h2>
 
-        <!-- Display lessons -->
+        <!-- Lessons -->
         <div class="card-columns-vertical">
             {% for lesson in course.lesson_set.all %}
             <div class="card mt-1">
@@ -76,6 +77,7 @@
         </button>
 
         <div id="exam" class="collapse">
+
             <form id="questionform"
                   action="{% url 'onlinecourse:submit' course.id %}"
                   method="POST">
@@ -94,14 +96,17 @@
 
                             {% for choice in question.choice_set.all %}
                             <div class="form-check">
+
                                 <label class="form-check-label">
-                                    <input type="checkbox"
-                                           name="choice_{{ choice.id }}"
-                                           class="form-check-input"
-                                           id="{{ choice.id }}"
-                                           value="{{ choice.id }}">
+                                    <input
+                                        type="checkbox"
+                                        name="choice_{{ choice.id }}"
+                                        class="form-check-input"
+                                        id="{{ choice.id }}"
+                                        value="{{ choice.id }}">
                                     {{ choice.content }}
                                 </label>
+
                             </div>
                             {% endfor %}
 
@@ -110,9 +115,10 @@
                 </div>
                 {% endfor %}
 
-                <input class="btn btn-success btn-block mt-2"
+                <input class="btn btn-success btn-block mt-3"
                        type="submit"
                        value="Submit">
+
             </form>
         </div>
         {% endif %}
