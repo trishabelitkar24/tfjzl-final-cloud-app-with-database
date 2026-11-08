@@ -1,6 +1,7 @@
+
 from django.contrib import admin
-# <HINT> Import any new Models here
 from .models import Course, Lesson, Instructor, Learner, Choice, Question, Submission
+
 
 # Inline classes
 
@@ -8,13 +9,16 @@ class LessonInline(admin.StackedInline):
     model = Lesson
     extra = 5
 
+
 class QuestionInline(admin.StackedInline):
     model = Question
     extra = 3
 
+
 class ChoiceInline(admin.StackedInline):
     model = Choice
     extra = 2
+
 
 # Admin classes
 
@@ -24,17 +28,21 @@ class CourseAdmin(admin.ModelAdmin):
     list_filter = ['pub_date']
     search_fields = ['name', 'description']
 
+
 class LessonAdmin(admin.ModelAdmin):
     list_display = ['title']
 
+
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['question_text', 'question_point']
+    list_display = ['content', 'grade']
     inlines = [ChoiceInline]
 
-class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ['choice_text', 'is_correct']
 
-# Models
+class ChoiceAdmin(admin.ModelAdmin):
+    list_display = ['content', 'is_correct']
+
+
+# Register models
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
