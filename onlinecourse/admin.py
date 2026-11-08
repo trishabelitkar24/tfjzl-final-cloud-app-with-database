@@ -37,11 +37,13 @@ class CourseAdmin(admin.ModelAdmin):
 class LessonAdmin(admin.ModelAdmin):
     list_display = ['title']
 
-
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['content', 'grade']
+    list_display = ['question_text', 'grade']
     inlines = [ChoiceInline]
 
+    @admin.display(description='Question')
+    def question_text(self, obj):
+        return obj.content
 
 class ChoiceAdmin(admin.ModelAdmin):
     list_display = ['content', 'is_correct']
